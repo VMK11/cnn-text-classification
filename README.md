@@ -50,8 +50,21 @@ optional arguments:
 Train:
 
 ```bash
-./train.py
+./train.py 
 ```
+## Freeze model for local inference
+```bash
+./freeze_graph.py --model_name='cnn_freezed.pb' --checkpoint_meta_dir_file='./runs/1532862764/checkpoints/model-100.meta' --checkpoint_meta_dir='./runs/1532862764/checkpoints/model-100'
+```
+
+Replace the model_name string with your desired name. Also, replace checkpoint dir with the output from the training. 
+
+## Inference Code
+```bash
+./inference_client.py --eval_train  --frozen_model_path='./cnn_freezed.pb' --checkpoint_dir="./runs/1533200979/checkpoints/"
+```
+
+Replace the frozen_model_path string with your path. Also, replace checkpoint dir with the output from the training. The dir of the checkpoints from training is imported as a parameter because the vocab file is essential for the inference. 
 
 ## Evaluating
 
