@@ -68,7 +68,7 @@ Replace the frozen_model_path string with your path. Also, replace checkpoint di
 
 ## Inference Code Kubernetes
 ```bash
-inference_client.py --server=localhost:9000 --checkpoint_dir='./runs/1533205895/checkpoints/'
+./inference_client.py --server=localhost:9000 --checkpoint_dir='./runs/1533205895/checkpoints/'
 ```
 
 Replace localhost with kubernetes IP and port. Also, replace checkpoint dir with the output from the training. The dir of the checkpoints from training is imported as a parameter because the vocab file is essential for the inference.
