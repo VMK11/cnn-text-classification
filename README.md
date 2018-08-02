@@ -59,12 +59,21 @@ Train:
 
 Replace the model_name string with your desired name. Also, replace checkpoint dir with the output from the training. 
 
-## Inference Code
+## Inference Code localy
 ```bash
 ./inference_client.py --eval_train  --frozen_model_path='./cnn_freezed.pb' --checkpoint_dir="./runs/1533200979/checkpoints/"
 ```
 
 Replace the frozen_model_path string with your path. Also, replace checkpoint dir with the output from the training. The dir of the checkpoints from training is imported as a parameter because the vocab file is essential for the inference. 
+
+## Inference Code Kubernetes
+```bash
+inference_client.py --server=localhost:9000 --checkpoint_dir='./runs/1533205895/checkpoints/'
+```
+
+Replace localhost with kubernetes IP and port. Also, replace checkpoint dir with the output from the training. The dir of the checkpoints from training is imported as a parameter because the vocab file is essential for the inference.
+
+
 
 ## Evaluating
 
