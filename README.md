@@ -47,7 +47,7 @@ optional arguments:
 
 ```
 
-Train:
+## Train:
 
 ```bash
 ./train.py 
