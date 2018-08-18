@@ -75,10 +75,10 @@ In this case, I run the TF serving using docker locally binding it to the port 8
 
 ## Inference Code Kubernetes
 ```bash
-./inference_client.py --server=localhost:9000 --checkpoint_dir='./runs/1533205895/checkpoints/'
+./inference_client.py --server=IP:PORT --checkpoint_dir='./runs/1533205895/checkpoints/'
 ```
 
-Replace localhost with kubernetes IP and port. Also, replace checkpoint dir with the output from the training. The dir of the checkpoints from training is imported as a parameter because the vocab file is essential for the inference.
+Replace IP and PORT with kubernetes IP and port. Also, replace checkpoint dir with the output from the training. The dir of the checkpoints from training is imported as a parameter because the vocab file is essential for the inference.
 
 
 
