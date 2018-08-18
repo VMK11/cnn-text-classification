@@ -50,15 +50,18 @@ def do_inference(hostport, test):
  
   # initialize a request
   request = predict_pb2.PredictRequest()
-  request.model_spec.name = 'saved_model'
-  request.model_spec.signature_name = 'prediction'
+  request.model_spec.name = 'cnn'
+  request.model_spec.signature_name = 'predict_cnn'
  
   # Get test data
-  request.inputs['input_x'].CopyFrom(
-  tf.contrib.util.make_tensor_proto(test, shape=test.shape))
- 
+  request.inputs['input'].CopyFrom(
+  tf.contrib.util.make_tensor_proto(test.astype(dtype=np.int32)))
+  request.inputs['dropout_keep_prob'].CopyFrom(
+  tf.contrib.util.make_tensor_proto(1.0))
+
+  #print(request)
   # predict
-  result = stub.Predict(request, 1000.0) # 1000 seconds
+  result = stub.Predict(request, 1000.0).outputs['output'] # 1000 seconds
   return result
 
 def load_data():
@@ -149,10 +152,13 @@ def performance(predictions,ground_truth):
   Returns:
   Array with predictions
   """
+  arr = tf.make_ndarray(predictions)
+  print(arr)
   if ground_truth is not None:
-    correct_predictions = float(sum(predictions == ground_truth))
+    correct_predictions = float(sum(arr == ground_truth))
     print("Total number of test examples: {}".format(len(ground_truth)))
     print("Accuracy: {:g}".format(correct_predictions/float(len(ground_truth))))
+    
 
 def main(_):
 
@@ -168,6 +174,7 @@ def main(_):
   else:
     result = do_inference(FLAGS.server, x_test)
     performance(result,y_test)
+    
   
  
 if __name__ == '__main__':

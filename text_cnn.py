@@ -82,43 +82,6 @@ class TextCNN(object):
         with tf.name_scope("accuracy"):
             correct_predictions = tf.equal(self.predictions, tf.argmax(self.input_y, 1))
             self.accuracy = tf.reduce_mean(tf.cast(correct_predictions, "float"), name="accuracy")
-    
-    # Export model apropriate for tensorflow serving
-    def export_for_serving(self, model_path):
-        # SavedModelBuilder will perform model export for us
-        builder = tf.saved_model.builder.SavedModelBuilder(model_path + '/1')
-
-        # First, we need to describe the signature for our API.
-        # It will consist of single prediction method with chopstck_length as 
-        # an input and class probability as an output.
-        # We build TensorInfo protos as a starting step. Those are needed to 
-        # shape prediction method signature
-        tensor_info_x = tf.saved_model.utils.build_tensor_info(self.input_x)
-        tensor_info_y = tf.saved_model.utils.build_tensor_info(self.predictions)
-
-        prediction_signature = (tf.saved_model.signature_def_utils.build_signature_def(
-            inputs={'input': tensor_info_x},
-            outputs={'classes_prob': tensor_info_y},
-            method_name=tf.saved_model.signature_constants.PREDICT_METHOD_NAME))
-        
-        # Legacy calls to initialize tables
-        # For more details on this see
-        # https://stackoverflow.com/questions/45521499/legacy-init-op-in-tensorflow-serving
-        legacy_init_op = tf.group(
-            tf.tables_initializer(), name='legacy_init_op')
-
-        # Finally, let's export the model as servable
-        sess = tf.get_default_session()
-        builder.add_meta_graph_and_variables(
-            sess, [tf.saved_model.tag_constants.SERVING],
-            signature_def_map={
-                #tf.saved_model.signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY:
-                'prediction':
-                prediction_signature,
-            },
-            legacy_init_op=legacy_init_op)
-        builder.save()
-        print('Done exporting')
 
 
     def export_protobuf(self, model_name, checkpoint_meta_dir):

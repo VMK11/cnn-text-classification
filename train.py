@@ -188,8 +188,7 @@ def train(x_train, y_train, vocab_processor, x_dev, y_dev):
                     path = saver.save(sess, checkpoint_prefix, global_step=current_step)
                     print("Saved model checkpoint to {}\n".format(path))
 
-            # Export model for TF Serving
-            cnn.export_for_serving('./runs')
+            
 def main(argv=None):
     x_train, y_train, vocab_processor, x_dev, y_dev = preprocess()
     train(x_train, y_train, vocab_processor, x_dev, y_dev)
