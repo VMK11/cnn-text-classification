@@ -72,7 +72,7 @@ with graph.as_default():
         # Creates the TensorInfo protobuf objects that encapsulates the input/output tensors
         tensor_info_input = tf.saved_model.utils.build_tensor_info(input_x)
         tensor_info_drop = tf.saved_model.utils.build_tensor_info(dropout_keep_prob)
-	#tensor_info_drop = tf.saved_model.utils.build_tensor_info(dropout_keep_prob)
+	
         # output tensor info
         tensor_info_output = tf.saved_model.utils.build_tensor_info(predictions)
 
