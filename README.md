@@ -52,6 +52,13 @@ Train:
 ```bash
 ./train.py 
 ```
+## Export model for Tensorflow Serving
+```bash
+./export_model_tf_serving.py  --checkpoint_meta_dir='./runs/1532862764/checkpoints/
+```
+
+Replace the ckeckpoints ID number with the current ID. The protobuf and varaibles folder are going to be exported in the './runs' directory.
+
 ## Freeze model for local inference
 ```bash
 ./freeze_graph.py --model_name='cnn_freezed.pb' --checkpoint_meta_dir_file='./runs/1532862764/checkpoints/model-100.meta' --checkpoint_meta_dir='./runs/1532862764/checkpoints/model-100'
