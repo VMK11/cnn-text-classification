@@ -54,7 +54,7 @@ optional arguments:
 ```
 ## Export model for Tensorflow Serving
 ```bash
-./export_model_tf_serving.py  --checkpoint_meta_dir='./runs/1532862764/checkpoints/
+./export_model_tf_serving.py  --checkpoint_dir='./runs/1532862764/checkpoints/'
 ```
 
 Replace the ckeckpoints ID number with the current ID. The protobuf and varaibles folder are going to be exported in the './runs' directory.
