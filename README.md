@@ -66,12 +66,12 @@ Replace the ckeckpoints ID number with the current ID. The protobuf and varaible
 
 Replace the model_name string with your desired name. Also, replace checkpoint dir with the output from the training. 
 
-## Inference Code localy
+## Inference Code for predicting locally. 
 ```bash
-./inference_client.py --eval_train  --frozen_model_path='./cnn_freezed.pb' --checkpoint_dir="./runs/1533200979/checkpoints/"
+./inference_client.py  --eval_train -- server=12.0.0.1:8500 --checkpoint_dir="./runs/1533200979/checkpoints/"
 ```
 
-Replace the frozen_model_path string with your path. Also, replace checkpoint dir with the output from the training. The dir of the checkpoints from training is imported as a parameter because the vocab file is essential for the inference. 
+In this case, I run the TF serving using docker locally binding it to the port 8500. Replace the IP and port if you've uploaded the model on the cloud. Replace checkpoint dir with the output from the training. The dir of the checkpoints from training is now imported as a parameter in order to load the model and then froze it in a form appropriate for TF serving.
 
 ## Inference Code Kubernetes
 ```bash
